@@ -2,6 +2,8 @@
 from django.db import models
 from django.utils import timezone
 
+from api.helpers.generate_api_key import generate_api_key
+
 # Create your models here.
 
 class Customer(models.Model):
@@ -26,10 +28,10 @@ class Customer(models.Model):
             self.created_at = timezone.now()
 
         # Updating api_key on any change
-        api_key = 'generate_api_key()'
-        # if api_key somehow exists in the db, regenerate
+        api_key = generate_api_key()
+            # if api_key somehow exists in the db, regenerate
         while len(Customer.objects.filter(api_key=api_key)) != 0:
-            api_key = 'generate_api_key()'
+            api_key = generate_api_key()
 
         self.api_key = api_key
 
