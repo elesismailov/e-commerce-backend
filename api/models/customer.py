@@ -39,8 +39,9 @@ class Customer(models.Model):
         return super(Customer, self).save(*args, **kwargs)
 
 
+
     def __str__(self):
-        return self.name, self.email, self.phone
+        return self.name + self.email + self.phone
 
 
 

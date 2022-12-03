@@ -2,10 +2,10 @@ from django.test import TestCase
 
 from api.models import Customer
 
-class TestingCustomerModel(TestCase):
+print('hello world')
+
+class TestModelCustomer(TestCase):
     
-    def setUp(self):
-        pass
 
     def test_customer_creation(self):
         
@@ -17,6 +17,7 @@ class TestingCustomerModel(TestCase):
                 name  = 'Customer Name',
                 phone = '+123 456 789 10',
                 email = 'customer@gmail.com',
+                password = '1234',
                 )
 
         customer_n_after = Customer.objects.count()
@@ -33,6 +34,7 @@ class TestingCustomerModel(TestCase):
                 name  = 'Customer Name',
                 phone = '+123 456 789 10',
                 email = 'customer@gmail.com',
+                password = '1234',
                 )
         customer_n_after = Customer.objects.count()
         self.assertEqual(customer_n_after, 1)
@@ -50,6 +52,7 @@ class TestingCustomerModel(TestCase):
                 name  = 'Customer Name',
                 phone = '+123 456 789 10',
                 email = 'customer@gmail.com',
+                password = '1234',
                 )
         customer_n_after = Customer.objects.count()
         self.assertEqual(customer_n_after, 1)
@@ -75,6 +78,7 @@ class TestingCustomerModel(TestCase):
                 name  = 'Customer Name',
                 phone = '+123 456 789 10',
                 email = 'customer@gmail.com',
+                password = '1234',
                 )
         customer_n_after = Customer.objects.count()
         self.assertEqual(customer_n_after, 1)
