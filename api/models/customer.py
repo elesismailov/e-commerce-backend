@@ -21,7 +21,7 @@ class Customer(models.Model):
 
 
     def save(self, *args, **kwargs):
-        '''On save, update/create fields.'''
+        '''On save, update/fill fields.'''
 
         # First save/creation
         if not self.id:
