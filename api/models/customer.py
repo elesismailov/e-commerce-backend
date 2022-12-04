@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password, check_password
 
 from api.helpers.generate_api_key import generate_api_key
 
@@ -25,17 +26,21 @@ class Customer(models.Model):
         # First save/creation
         if not self.id:
 
+            # Hashing password
+            self.password = make_password(self.password)
+
             self.created_at = timezone.now()
+
+        # Everything happing below runs every update
 
         # Updating api_key on any change
         api_key = generate_api_key()
-            # if api_key somehow exists in the db, regenerate
+        # if api_key somehow exists in the db, regenerate
         while len(Customer.objects.filter(api_key=api_key)) != 0:
             api_key = generate_api_key()
 
         self.api_key = api_key
 
-        # Updating last modified
         self.last_modified = timezone.now()
 
         return super(Customer, self).save(*args, **kwargs)
