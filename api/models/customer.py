@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password, check_password
@@ -31,7 +30,7 @@ class Customer(models.Model):
 
             self.created_at = timezone.now()
 
-        # Everything happing below runs every update
+        # Everything happenning below runs every update
 
         # Updating api_key on any change
         api_key = generate_api_key()
@@ -49,11 +48,5 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name + self.email + self.phone
-
-
-
-
-
-
 
 
