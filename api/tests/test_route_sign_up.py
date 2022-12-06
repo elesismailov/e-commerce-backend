@@ -14,7 +14,7 @@ class TestCustomerSignUp(TestCase):
         customer_n_before = Customer.objects.count()
         self.assertEqual(customer_n_before, 0)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     "password": "1234",
@@ -32,7 +32,7 @@ class TestCustomerSignUp(TestCase):
         customer_n_before = Customer.objects.count()
         self.assertEqual(customer_n_before, 0)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     "password": "1234",
@@ -66,7 +66,7 @@ class TestCustomerSignUp(TestCase):
         self.assertEqual(customer_n_after, 1)
 
         # TEST
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     "password": "1234",
@@ -84,7 +84,7 @@ class TestCustomerSignUp(TestCase):
 
     def test_400_BAD_REQUEST(self):
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     #"name": "Test Customer",
                     "password": "1234",
@@ -97,7 +97,7 @@ class TestCustomerSignUp(TestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     #"password": "1234",
@@ -110,7 +110,7 @@ class TestCustomerSignUp(TestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     "password": "1234",
@@ -123,7 +123,7 @@ class TestCustomerSignUp(TestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     "password": "1234",
@@ -136,7 +136,7 @@ class TestCustomerSignUp(TestCase):
                 response.status_code,
                 status.HTTP_400_BAD_REQUEST)
 
-        response = self.c.post('/api/sign-up', 
+        response = self.c.post('/api/sign-up/', 
                 {
                     "name": "Test Customer",
                     #"password": "1234",
