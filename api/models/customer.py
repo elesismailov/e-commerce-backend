@@ -47,6 +47,6 @@ class Customer(models.Model):
 
 
     def __str__(self):
-        return self.name + self.email + self.phone
+        return self.name + ' ' + self.email + ' ' + self.phone
 
 
