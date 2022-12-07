@@ -32,7 +32,7 @@ class TestCustomerLogIn(TestCase):
                 content_type='application/json',
                 )
 
-        self.assertTrue(hasattr(response.data, 'api_key'))
+        self.assertTrue('api_key' in response.data)
 
         self.assertEqual(
                 response.data.get('api_key'),
@@ -80,11 +80,29 @@ class TestCustomerLogIn(TestCase):
                 )
 
 
-        self.assertTrue(hasattr(response.data, 'api_key'))
-        self.assertTrue(hasattr(response.data, 'customer_data'))
+        self.assertTrue('api_key' in response.data)
+        self.assertTrue('customer_data' in response.data)
 
-        # test count of fields
-        # test compare some fields
+        self.assertEqual(
+                self.customer.api_key,
+                response.data.get('api_key')
+                )
+
+        self.assertEqual(
+                self.customer.name,
+                response.data['customer_data'].get('name')
+                )
+
+        self.assertEqual(
+                self.customer.email,
+                response.data['customer_data'].get('email')
+                )
+
+        self.assertEqual(
+                self.customer.phone,
+                response.data['customer_data'].get('phone')
+                )
+
 
 
 
