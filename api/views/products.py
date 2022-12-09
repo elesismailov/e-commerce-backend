@@ -5,6 +5,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
+from rest_framework.pagination import PageNumberPagination
+
+class CustomPageNumberPagination(PageNumberPagination):
+    page_size_query_param = 'size'
+
 
 class ProductList(APIView):
     """
@@ -12,8 +17,15 @@ class ProductList(APIView):
     """
     def get(self, request, format=None):
         products = Product.objects.all()
-        serializer = ProductSerializer(products, many=True)
-        return Response(serializer.data)
+
+        pagination = CustomPageNumberPagination()
+
+        page = pagination.paginate_queryset(products, request)
+
+        serializer = ProductSerializer(page, many=True)
+
+        return pagination.get_paginated_response(serializer.data)
+        # return Response(serializer.data)
 
     # def post(self, request, format=None):
     #     serializer = SnippetSerializer(data=request.data)
