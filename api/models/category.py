@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from api.helpers.generate_slug import generate_slug
+
 # Create your models here.
 
 class Category(models.Model):
@@ -23,6 +25,13 @@ class Category(models.Model):
             self.created_at = timezone.now()
 
         # Everything happenning below runs every update
+
+        # generating slug
+        self.slug = generate_slug(
+                [c.name for c in self.get_all_parents()],
+                self.name,
+                'category',
+                )
 
         self.last_modified = timezone.now()
 
