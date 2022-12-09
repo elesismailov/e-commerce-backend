@@ -28,5 +28,30 @@ class Category(models.Model):
 
         return super(Category, self).save(*args, **kwargs)
 
+
+    # parent traversion
+    def get_all_parents(self):
+
+        if self.parent_category == None:
+            return []
+
+        parents = [self.parent_category]
+
+        return self.parent_category.get_all_parents() + parents
+
+
     def __str__(self):
         return self.name
+
+
+
+
+
+
+
+
+
+
+
+
+
