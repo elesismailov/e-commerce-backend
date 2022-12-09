@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password, check_password
 
+from api.helpers.generate_slug import generate_slug
+
 # Create your models here.
 
 class Product(models.Model):
@@ -34,6 +36,12 @@ class Product(models.Model):
             self.created_at = timezone.now()
 
         # Everything happenning below runs every update
+
+        self.slug = generate_slug(
+                self.brand.name,
+                self.name,
+                self.id,
+                ) or generate_slug(self.name)
 
         self.last_modified = timezone.now()
 

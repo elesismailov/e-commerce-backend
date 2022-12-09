@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from api.helpers.generate_slug import generate_slug
+
 # Create your models here.
 
 class Brand(models.Model):
@@ -22,6 +24,11 @@ class Brand(models.Model):
             self.created_at = timezone.now()
 
         # Everything happenning below runs every update
+
+        self.slug = generate_slug(
+                'brand',
+                self.name,
+                ) or generate_slug(self.name)
 
         self.last_modified = timezone.now()
 
