@@ -13,7 +13,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 
 class CategoryProducts(APIView):
     """
-    List all Products, or create a new Product.
+    List products of a category.
     """
     def get(self, request, slug):
 
@@ -34,4 +34,13 @@ class CategoryProducts(APIView):
         serializer = ProductSerializer(page, many=True)
 
         return pagination.get_paginated_response(serializer.data)
+
+
+
+
+
+
+
+
+
 

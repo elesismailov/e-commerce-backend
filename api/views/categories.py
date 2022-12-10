@@ -15,6 +15,6 @@ class CategoryList(APIView):
 
         categories = Category.objects.all()
 
-        serializer = CategorySerializer(page, many=True)
+        serializer = CategorySerializer(categories, many=True)
 
         return Response(serializer.data)
