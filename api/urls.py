@@ -5,7 +5,7 @@ from api import views
 
 urlpatterns = [
     path('products/', views.ProductList.as_view()),
-    path('products/<str:slug>', views.Product.as_view()),
+    path('products/<str:slug>/', views.ProductView.as_view()),
     path('sign-up/', views.sign_up),
     path('log-in/', views.log_in),
 ]
