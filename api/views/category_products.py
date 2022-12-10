@@ -1,4 +1,4 @@
-from api.models import Product
+from api.models import Product, Category
 from api.serializers import ProductSerializer
 from django.http import Http404
 from rest_framework.views import APIView
@@ -11,15 +11,21 @@ class CustomPageNumberPagination(PageNumberPagination):
     page_size_query_param = 'size'
 
 
-class ProductList(APIView):
+class CategoryProducts(APIView):
     """
     List all Products, or create a new Product.
     """
-    def get(self, request, format=None):
+    def get(self, request, slug):
 
         #TODO error handling
 
-        products = Product.objects.all()
+        try:
+            category = Category.objects.get(slug=slug)
+
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        products = Product.objects.filter(category=category).order_by('created_at')
 
         pagination = CustomPageNumberPagination()
 
