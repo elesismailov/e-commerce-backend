@@ -19,7 +19,7 @@ class ProductList(APIView):
 
         #TODO error handling
 
-        products = Product.objects.all()
+        products = Product.objects.all().order_by('created_at')
 
         pagination = CustomPageNumberPagination()
 
