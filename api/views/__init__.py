@@ -8,3 +8,5 @@ from .product_view import ProductView
 from .category_view import CategoryView
 
 from .category_products import CategoryProducts
+
+from .cart import CartView
