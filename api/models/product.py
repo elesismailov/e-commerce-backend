@@ -11,7 +11,7 @@ class Product(models.Model):
     name            = models.CharField(max_length=50)
     description     = models.CharField(max_length=250)
     
-    slug            = models.CharField(max_length=50)
+    slug            = models.CharField(max_length=50, blank=True)
 
     # TODO how to change category if the category/brand was deleted
     #   (on_delete='do something with the category')
@@ -19,7 +19,7 @@ class Product(models.Model):
     brand           = models.ForeignKey('api.Brand', on_delete=models.DO_NOTHING)
 
     in_stock_amount = models.IntegerField()
-    sold_amount     = models.IntegerField()
+    sold_amount     = models.IntegerField(default=0)
     
     price           = models.IntegerField()
 

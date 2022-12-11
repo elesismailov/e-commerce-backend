@@ -9,7 +9,7 @@ class Brand(models.Model):
     name            = models.CharField(max_length=50)
     description     = models.CharField(max_length=250)
     
-    slug            = models.CharField(max_length=50)
+    slug            = models.CharField(max_length=50, blank=True)
 
     created_at      = models.DateTimeField(editable=False)
     last_modified   = models.DateTimeField(editable=False)

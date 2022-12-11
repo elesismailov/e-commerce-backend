@@ -12,7 +12,10 @@ class CartView(APIView):
     """
     def get(self, request):
 
-        items = CartItem.objects.filter(customer=request.customer, is_active=True).order_by('created_at')
+        items = CartItem.objects.filter(
+                customer=request.customer,
+                is_active=True
+               ).order_by('created_at')
 
         serializer = CartItemSerializer(items, many=True)
 

@@ -9,7 +9,7 @@ class CartItem(models.Model):
 
     product          = models.ForeignKey('api.Product', on_delete=models.CASCADE)
 
-    quantity         = models.IntegerField()
+    quantity         = models.IntegerField(default=0)
 
     # price_expires_at = models.DateTimeField()
 
@@ -17,8 +17,6 @@ class CartItem(models.Model):
 
     created_at       = models.DateTimeField(editable=False)
     last_modified    = models.DateTimeField(editable=False)
-
-    deleted_at       = models.DateTimeField(null=True, blank=True)
 
     checked_out_at   = models.DateTimeField(null=True, blank=True) 
 
@@ -32,8 +30,8 @@ class CartItem(models.Model):
 
         # Everything happenning below runs every update
 
-        # if self.is_active:
-
+        if not self.is_active:
+            self.checked_out_at = timezone.now()
 
         self.last_modified = timezone.now()
 
