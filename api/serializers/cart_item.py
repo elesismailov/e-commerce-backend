@@ -6,14 +6,16 @@ from api.serializers import ProductSerializer
 
 class CartItemSerializer(serializers.Serializer):
     
-    # cart             = serializers.EmptyFieldLOL()
-    product          = ProductSerializer()
+    id               = serializers.IntegerField(read_only=True)
 
     quantity         = serializers.IntegerField()
 
     # price_expires_at = serializers.DateTimeField()
 
     created_at       = serializers.DateTimeField(read_only=True)
+
+    # cart             = serializers.EmptyFieldLOL()
+    product          = ProductSerializer()
 
     class Meta:
         model = CartItem
