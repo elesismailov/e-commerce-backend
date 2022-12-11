@@ -14,9 +14,15 @@ class CartItemSerializer(serializers.Serializer):
 
     created_at       = serializers.DateTimeField(read_only=True)
 
-    # cart             = serializers.EmptyFieldLOL()
     product          = ProductSerializer()
 
     class Meta:
         model = CartItem
         fields = ['name', 'description']
+
+
+
+
+
+
+

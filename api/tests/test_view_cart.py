@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 
 from rest_framework import status
 
-from api.models import Customer, Product, Brand, Category, Cart, CartItem
+from api.models import Customer, Product, Brand, Category, CartItem
 
 class TestViewCart(TestCase):
 
@@ -36,14 +36,9 @@ class TestViewCart(TestCase):
                 price = 1234,
                 )
 
-        self.cart = Cart.objects.create(
-                customer=self.customer,
-                )
-
     def test_getting_data(self):
 
         item = CartItem.objects.create(
-                cart=self.cart,
                 product=self.product,
                 quantity=5,
                 )

@@ -5,12 +5,15 @@ from django.utils import timezone
 
 class CartItem(models.Model):
 
-    cart             = models.ForeignKey('api.Cart', on_delete=models.CASCADE)
+    customer         = models.ForeignKey('api.Customer', on_delete=models.CASCADE)
+
     product          = models.ForeignKey('api.Product', on_delete=models.CASCADE)
 
     quantity         = models.IntegerField()
 
     # price_expires_at = models.DateTimeField()
+
+    is_active        = models.BooleanField(default=True)
 
     created_at       = models.DateTimeField(editable=False)
     last_modified    = models.DateTimeField(editable=False)
@@ -28,6 +31,8 @@ class CartItem(models.Model):
             self.created_at = timezone.now()
 
         # Everything happenning below runs every update
+
+        # if self.is_active:
 
 
         self.last_modified = timezone.now()
