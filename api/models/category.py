@@ -14,7 +14,7 @@ class Category(models.Model):
     parent_category = models.ForeignKey('api.Category', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     created_at      = models.DateTimeField(editable=False)
-    last_modified   = models.DateTimeField()
+    last_modified   = models.DateTimeField(editable=False)
 
     def save(self, *args, **kwargs):
         '''On save, update/fill fields.'''

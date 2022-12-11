@@ -12,7 +12,7 @@ class Brand(models.Model):
     slug            = models.CharField(max_length=50)
 
     created_at      = models.DateTimeField(editable=False)
-    last_modified   = models.DateTimeField()
+    last_modified   = models.DateTimeField(editable=False)
 
 
     def save(self, *args, **kwargs):

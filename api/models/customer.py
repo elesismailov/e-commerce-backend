@@ -14,9 +14,9 @@ class Customer(models.Model):
     phone         = models.CharField(max_length=30, unique=True)
 
     created_at    = models.DateTimeField(editable=False)
-    last_modified = models.DateTimeField()
+    last_modified = models.DateTimeField(editable=False)
 
-    api_key       = models.CharField(max_length=100)
+    api_key       = models.CharField(max_length=100, unique=True)
 
 
     def save(self, *args, **kwargs):

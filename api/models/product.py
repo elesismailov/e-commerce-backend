@@ -24,7 +24,7 @@ class Product(models.Model):
     price           = models.IntegerField()
 
     created_at      = models.DateTimeField(editable=False)
-    last_modified   = models.DateTimeField()
+    last_modified   = models.DateTimeField(editable=False)
 
 
     def save(self, *args, **kwargs):

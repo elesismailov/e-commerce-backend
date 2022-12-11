@@ -10,14 +10,14 @@ class CartItem(models.Model):
 
     quantity         = models.IntegerField()
 
-    price_expires_at = models.DateTimeField(editable=False)
+    # price_expires_at = models.DateTimeField()
 
     created_at       = models.DateTimeField(editable=False)
-    last_modified    = models.DateTimeField()
+    last_modified    = models.DateTimeField(editable=False)
 
-    deleted_at       = models.DateTimeField(null=True)
+    deleted_at       = models.DateTimeField(null=True, blank=True)
 
-    checked_out_at   = models.DateTimeField(null=True) 
+    checked_out_at   = models.DateTimeField(null=True, blank=True) 
 
     def save(self, *args, **kwargs):
         '''On save, update/fill fields.'''
@@ -32,7 +32,7 @@ class CartItem(models.Model):
 
         self.last_modified = timezone.now()
 
-        return super(Cart, self).save(*args, **kwargs)
+        return super(CartItem, self).save(*args, **kwargs)
 
 
 

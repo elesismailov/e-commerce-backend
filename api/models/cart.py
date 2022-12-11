@@ -8,7 +8,7 @@ class Cart(models.Model):
     customer        = models.ForeignKey('api.Customer', on_delete=models.CASCADE)
 
     created_at      = models.DateTimeField(editable=False)
-    last_modified   = models.DateTimeField()
+    last_modified   = models.DateTimeField(editable=False)
 
     def save(self, *args, **kwargs):
         '''On save, update/fill fields.'''
