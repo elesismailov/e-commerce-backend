@@ -3,3 +3,7 @@ from .product import ProductSerializer
 from .category import CategorySerializer
 from .brand import BrandSerializer
 from .cart_item import CartItemSerializer
+from .order import OrderSerializer
+from .status_code import StatusCodeSerializer
+from .order_item import OrderItemSerializer
+from .shipment import ShipmentSerializer

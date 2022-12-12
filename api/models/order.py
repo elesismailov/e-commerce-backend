@@ -1,17 +1,15 @@
-
 from django.db import models
+from django.utils import timezone
 
 class Order(models.Model):
 
-    customer         = models.ForeignKey('api.Customer', on_delete=models.CASCADE)
+    customer         = models.ForeignKey('api.Customer', on_delete=models.DO_NOTHING)
 
     customer_comment = models.CharField(max_length=500, blank=True)
     
-    status_code      = models.ForeignKey('api.StatusCode', on_delete=models.CASCADE)
+    status_code      = models.ForeignKey('api.StatusCode', on_delete=models.DO_NOTHING)
 
-    product          = models.ForeignKey('api.Product', on_delete=models.CASCADE)
-
-    quantity         = models.IntegerField(default=0)
+    # total            = models.IntegerField()
 
     created_at       = models.DateTimeField(editable=False)
     last_modified    = models.DateTimeField(editable=False)

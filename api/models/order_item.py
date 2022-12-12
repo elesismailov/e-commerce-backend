@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class OrderItem(models.Model):
 
@@ -6,7 +7,7 @@ class OrderItem(models.Model):
     
     price         = models.IntegerField()
 
-    quantity      = models.IntegerField(default=0)
+    quantity      = models.IntegerField(default=1)
 
     created_at    = models.DateTimeField(editable=False)
     last_modified = models.DateTimeField(editable=False)

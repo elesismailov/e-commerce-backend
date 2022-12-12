@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class StatusCode(models.Model):
 
@@ -20,4 +21,4 @@ class StatusCode(models.Model):
 
         self.last_modified = timezone.now()
 
-        return super(Shipment, self).save(*args, **kwargs)
+        return super(StatusCode, self).save(*args, **kwargs)
