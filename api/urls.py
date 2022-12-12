@@ -10,6 +10,9 @@ urlpatterns = [
 
     path('cart/', views.CartView.as_view()),
 
+
+    path('orders/', views.OrdersView.as_view()),
+
     # list all categories
     path('categories/', views.CategoryList.as_view()),
 

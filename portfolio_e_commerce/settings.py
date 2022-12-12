@@ -22,6 +22,8 @@ ALLOWED_HOSTS = []
 API_PROTECTED_ROUTES = [
         '/api/cart/',
         '/api/cart/<cart_item>/',
+        '/api/orders/',
+        '/api/orders/*'
         ]
 
 
