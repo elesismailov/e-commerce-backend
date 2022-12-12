@@ -21,3 +21,26 @@ class OrdersView(APIView):
                     "orders": serializer.data
                     }
                 )
+
+    def post(self, request):
+
+        print('/api/orders/ POST')
+
+        return Response("Your response")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

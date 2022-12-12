@@ -4,6 +4,8 @@ from django.utils import timezone
 class OrderItem(models.Model):
 
     product       = models.ForeignKey('api.Product', on_delete=models.CASCADE)
+
+    order         = models.ForeignKey('api.Order', on_delete=models.CASCADE)
     
     price         = models.IntegerField()
 

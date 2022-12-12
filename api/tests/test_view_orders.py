@@ -4,7 +4,7 @@ from rest_framework import status
 
 from api.models import Customer, Product, Brand, Category, Order, StatusCode
 
-class TestViewCart(TestCase):
+class TestViewOrders(TestCase):
 
     def setUp(self):
         self.c = Client()
