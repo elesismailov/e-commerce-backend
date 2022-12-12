@@ -5,7 +5,7 @@ class Order(models.Model):
 
     customer         = models.ForeignKey('api.Customer', on_delete=models.DO_NOTHING)
 
-    customer_comment = models.CharField(max_length=500, blank=True)
+    customer_comment = models.CharField(max_length=500, blank=True, null=True)
     
     status_code      = models.ForeignKey('api.StatusCode', on_delete=models.DO_NOTHING)
 

@@ -3,6 +3,8 @@ from django.test import TestCase, Client
 
 from rest_framework import status
 
+import json
+
 from api.models import Customer, Product, Brand, Category, Order, StatusCode, OrderItem, CartItem
 
 class TestViewOrdersPost(TestCase):
@@ -60,26 +62,20 @@ class TestViewOrdersPost(TestCase):
 
         response = self.c.post(
                 '/api/orders/',
-                {
+                json.dumps({
                     "cart_items": [
                         {
                             "cart_item_id": self.cart_item.id,
                             "quantity": quantity,
                             },
                         ],
-                    },
+                    }),
+                content_type='application/json',
                 HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
                 )
 
 
-        item = OrderItem.objects.get(order=self.order)
-
-        self.assertIsNotNone(item)
-
-        self.assertEqual(item.product.id, self.product.id)
-
-        self.assertEqual(item.quantity, quantity)
-        print(response.data)
+        self.assertEqual(OrderItem.objects.count(), 1)
 
 
     def test_400_BAD_REQUEST(self):
@@ -90,9 +86,10 @@ class TestViewOrdersPost(TestCase):
 
         response = self.c.post(
                 '/api/orders/', { "cart_items": [ {
-                            "cart_item_id": self.cart_item.id,
+                            #"cart_item_id": self.cart_item.id,
                             # "quantity": quantity,
                             }, ], },
+                content_type='application/json',
                 HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
                 )
 
@@ -112,6 +109,7 @@ class TestViewOrdersPost(TestCase):
                             "cart_item_id": "101200201",
                             "quantity": quantity,
                             }, ], },
+                content_type='application/json',
                 HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
                 )
 
@@ -139,12 +137,17 @@ class TestViewOrdersPost(TestCase):
                             },
                         ],
                     },
+                content_type='application/json',
                 HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
                 )
 
-        self.assertFalse(self.cart_item.is_active)
+        # need to get the last created cart_item,
+        # this one was not created by the view
 
-        self.assertIsNotNone(self.cart_item.checked_out_at)
+        cart_item = CartItem.objects.get(id=self.cart_item.id)
+
+        self.assertFalse(cart_item.is_active)
+        self.assertIsNotNone(cart_item.checked_out_at)
 
 
 
