@@ -10,8 +10,11 @@ class CartItemSerializer(serializers.Serializer):
 
     quantity         = serializers.IntegerField()
 
-    # price_expires_at = serializers.DateTimeField()
+    is_active        = serializers.BooleanField()
 
+    checked_out_at   = serializers.DateTimeField()
+
+    last_modified    = serializers.DateTimeField(read_only=True)
     created_at       = serializers.DateTimeField(read_only=True)
 
     product          = ProductSerializer()
