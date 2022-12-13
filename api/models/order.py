@@ -30,4 +30,4 @@ class Order(models.Model):
         return super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.customer.email + ' - ' + self.status_code.name
+        return '#' + str(self.id) + ' ' + self.customer.email + ' - ' + self.status_code.name

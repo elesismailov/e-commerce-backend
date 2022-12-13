@@ -14,12 +14,10 @@ class OrderSerializer(serializers.Serializer):
 
     customer_comment = serializers.CharField(max_length=500)
 
-    status_code      = StatusCodeSerializer()
-
     created_at       = serializers.DateTimeField(read_only=True)
     last_modified    = serializers.DateTimeField(read_only=True)
 
-
+    status_code      = StatusCodeSerializer()
 
 
     class Meta:

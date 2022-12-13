@@ -29,7 +29,8 @@ class OrdersView(APIView):
     def post(self, request):
 
         cart_items_data = request.data.get('cart_items')
-        # address_to
+        customer_comment = request.data.get('customer_comment')
+        # address_to = request.data.get('address_to')
         cart_items = []
 
         if not cart_items_data:
@@ -38,7 +39,7 @@ class OrdersView(APIView):
 
         order = Order.objects.create(
                 customer         = request.customer,
-                # customer_comment = customer_comment,
+                customer_comment = customer_comment,
                 status_code      = StatusCode.objects.first(),
                 )
 
@@ -48,6 +49,7 @@ class OrdersView(APIView):
         for data in cart_items_data:
             try:
                 cart_item = CartItem.objects.get(id=int(data['cart_item_id']), is_active=True)
+                print(cart_item)
 
             except CartItem.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
@@ -66,8 +68,16 @@ class OrdersView(APIView):
                     )
 
             cart_item.is_active = False
+            cart_item.save()
 
-        return Response("Your response")
+
+        serializer = OrderSerializer(order)
+
+        return Response(
+                {
+                    "order": serializer.data
+                    }
+                )
 
 
 

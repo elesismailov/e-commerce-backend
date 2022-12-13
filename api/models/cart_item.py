@@ -38,7 +38,7 @@ class CartItem(models.Model):
         return super(CartItem, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.product.name + ' - ' + str(self.quantity) + 'pc'
+        return self.product.name + ' - ' + str(self.quantity) + 'pc ' + ('Active' if self.is_active else 'Inactive')
 
 
 

@@ -29,4 +29,4 @@ class OrderItem(models.Model):
         return super(OrderItem, self).save(*args, **kwargs)
 
     def __str__(self):
-        return 'Order Item - ' + str(self.quantity) + ' ' + self.product.name
+        return 'Order Item - ' + str(self.quantity) + 'pc ' + self.product.name
