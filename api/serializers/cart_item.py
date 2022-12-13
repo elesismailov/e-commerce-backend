@@ -2,11 +2,14 @@ from rest_framework import serializers
 
 from api.models import CartItem
 from api.serializers import ProductSerializer
+from api.serializers.customer import CustomerSerializer
 
 
 class CartItemSerializer(serializers.Serializer):
     
     id               = serializers.IntegerField(read_only=True)
+
+    customer         = CustomerSerializer(write_only=True)
 
     quantity         = serializers.IntegerField()
 

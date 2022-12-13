@@ -8,6 +8,8 @@ class CategorySerializer(serializers.Serializer):
 
     name            = serializers.CharField(max_length=50)
     description     = serializers.CharField(max_length=250)
+
+    # parent_category = CategorySerializer()
     
     slug            = serializers.CharField(max_length=50)
 

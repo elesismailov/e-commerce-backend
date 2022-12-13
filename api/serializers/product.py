@@ -9,7 +9,7 @@ from api.serializers.brand import BrandSerializer
 
 class ProductSerializer(serializers.Serializer):
     
-    id               = serializers.IntegerField(read_only=True)
+    id              = serializers.IntegerField(read_only=True)
     
     name            = serializers.CharField(max_length=50)
     description     = serializers.CharField(max_length=250)

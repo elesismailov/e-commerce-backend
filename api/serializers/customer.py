@@ -5,6 +5,8 @@ from api.models import Customer
 
 class CustomerSerializer(serializers.Serializer):
 
+    id               = serializers.IntegerField(read_only=True)
+
     name       = serializers.CharField(max_length=50, required=True)
     email      = serializers.EmailField(max_length=50, required=True)
     phone      = serializers.CharField(max_length=50, required=True)
