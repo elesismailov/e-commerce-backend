@@ -12,6 +12,7 @@ urlpatterns = [
 
 
     path('orders/', views.OrdersView.as_view()),
+    path('orders/<int:order_id>/', views.OrderView.as_view()),
 
     # list all categories
     path('categories/', views.CategoryList.as_view()),
