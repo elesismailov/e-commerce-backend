@@ -1,8 +1,9 @@
 from django.test import TestCase, Client
 
 from rest_framework import status
+import json
 
-from api.models import Customer, Product, Brand, Category, Order, StatusCode, OrderItem
+from api.models import Customer, Product, Brand, Category, Order, StatusCode, OrderItem, Shipment
 
 class TestViewOrder(TestCase):
 
@@ -80,5 +81,81 @@ class TestViewOrder(TestCase):
                 response.status_code,
                 status.HTTP_404_NOT_FOUND,
                 )
+
+
+
+
+    def test_shipment_creation(self):
+        response = self.c.post(
+                '/api/orders/' + str(self.order.id) + '/shipment/',
+                json.dumps({
+                    'shipment': {
+                        'address_to': 'Hels Ave, Grsw St, 45/12, New-Hurj, UE',
+                        },
+                    }),
+                content_type='application/json',
+                HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
+                )
+        shipment = Shipment.objects.get(order=self.order)
+
+        
+
+    def test_shipment_404_invalid_id(self):
+        response = self.c.post(
+                '/api/orders/' + str(1290291022100219292110212902) + '/shipment/',
+                json.dumps({
+                    'shipment': {
+                        'address_to': 'Hels Ave, Grsw St, 45/12, New-Hurj, UE',
+                        },
+                    }),
+                content_type='application/json',
+                HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
+                )
+
+        self.assertEqual(
+                response.status_code,
+                status.HTTP_404_NOT_FOUND,
+                )
+
+    def test_shipment_400_invalid_data(self):
+
+        response = self.c.post(
+                '/api/orders/' + str(self.order.id) + '/shipment/',
+                json.dumps({
+                    'shipment': {
+                        'address_to': ''
+                        },
+                    }),
+                content_type='application/json',
+                HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
+                )
+        self.assertEqual(
+                response.status_code,
+                status.HTTP_400_BAD_REQUEST,
+                )
+
+        response = self.c.post(
+                '/api/orders/' + str(self.order.id) + '/shipment/',
+                json.dumps({
+                    'shipment': {
+                        # 'address_to': ''
+                        },
+                    }),
+                content_type='application/json',
+                HTTP_AUTHORIZATION='API-KEY ' + self.customer.api_key,
+                )
+        self.assertEqual(
+                response.status_code,
+                status.HTTP_400_BAD_REQUEST,
+                )
+
+
+
+
+
+
+
+
+
 
 

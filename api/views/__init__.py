@@ -12,4 +12,4 @@ from .category_products import CategoryProducts
 from .cart import CartView
 
 from .orders import OrdersView
-from .order import OrderView
+from .order import OrderView, OrderShipmentView
