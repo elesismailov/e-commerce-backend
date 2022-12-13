@@ -10,6 +10,7 @@ from .category_view import CategoryView
 from .category_products import CategoryProducts
 
 from .cart import CartView
+from .cart_item import CartItemView
 
 from .orders import OrdersView
 from .order import OrderView, OrderShipmentView

@@ -9,6 +9,7 @@ urlpatterns = [
 
 
     path('cart/', views.CartView.as_view()),
+    path('cart/<int:cart_item_id>/', views.CartItemView.as_view()),
 
 
     path('orders/', views.OrdersView.as_view()),
