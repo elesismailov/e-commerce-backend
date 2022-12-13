@@ -37,6 +37,9 @@ class CartItem(models.Model):
 
         return super(CartItem, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.product.name + ' - ' + str(self.quantity) + 'pc'
+
 
 
 

@@ -28,3 +28,6 @@ class Order(models.Model):
         self.last_modified = timezone.now()
 
         return super(Order, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.customer.email + ' - ' + self.status_code.name

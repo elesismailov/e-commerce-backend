@@ -25,3 +25,6 @@ class Shipment(models.Model):
         self.last_modified = timezone.now()
 
         return super(Shipment, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Shipment ' + self.order

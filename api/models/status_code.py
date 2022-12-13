@@ -22,3 +22,6 @@ class StatusCode(models.Model):
         self.last_modified = timezone.now()
 
         return super(StatusCode, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Status Code ' + str(self.code) + ' - ' + self.name

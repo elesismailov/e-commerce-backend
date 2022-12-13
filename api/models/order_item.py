@@ -27,3 +27,6 @@ class OrderItem(models.Model):
         self.last_modified = timezone.now()
 
         return super(OrderItem, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return 'Order Item - ' + str(self.quantity) + ' ' + self.product.name
