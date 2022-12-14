@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password, check_password
 
+from random import randint as r
+
 from api.helpers.generate_slug import generate_slug
 
 # Create your models here.
@@ -11,7 +13,7 @@ class Product(models.Model):
     name            = models.CharField(max_length=50)
     description     = models.CharField(max_length=250)
     
-    slug            = models.CharField(max_length=50, blank=True)
+    slug            = models.CharField(max_length=50, blank=True, unique=True)
 
     # TODO how to change category if the category/brand was deleted
     #   (on_delete='do something with the category')
@@ -37,11 +39,22 @@ class Product(models.Model):
 
         # Everything happenning below runs every update
 
-        self.slug = generate_slug(
+        slug = generate_slug(
                 self.brand.name,
                 self.name,
-                self.id,
-                ) or generate_slug(self.name)
+                self.id or r(0, 1000000000000),
+                )
+
+
+        # if slug somehow exists in the db, regenerate
+        while len(Product.objects.filter(slug=slug)) != 0:
+            slug = generate_slug(
+                    self.brand.name,
+                    self.name,
+                    self.id or r(0, 10000000000000),
+                    )
+
+        self.slug = slug
 
         self.last_modified = timezone.now()
 
