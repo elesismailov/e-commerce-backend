@@ -23,3 +23,14 @@ class ProductView(APIView):
         return Response({
             'product': serializer.data
             })
+
+    def delete(self, request, slug):
+
+        try:
+            product = Product.objects.get(slug=slug)
+        except Product.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+

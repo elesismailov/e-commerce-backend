@@ -22,6 +22,8 @@ class Product(models.Model):
 
     in_stock_amount = models.IntegerField()
     sold_amount     = models.IntegerField(default=0)
+
+    is_active       = models.BooleanField(default=True)
     
     price           = models.IntegerField()
 

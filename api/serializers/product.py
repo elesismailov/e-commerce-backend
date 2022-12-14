@@ -18,6 +18,8 @@ class ProductSerializer(serializers.Serializer):
 
     in_stock_amount = serializers.IntegerField()
     sold_amount     = serializers.IntegerField()
+
+    is_active       = serializers.BooleanField(read_only)
     
     price           = serializers.IntegerField()
 
