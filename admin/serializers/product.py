@@ -19,6 +19,8 @@ class ProductSerializer(serializers.Serializer):
     in_stock_amount = serializers.IntegerField()
     sold_amount     = serializers.IntegerField()
     
+    is_active       = serializers.BooleanField(read_only=True)
+
     price           = serializers.IntegerField()
 
     created_at      = serializers.DateTimeField(read_only=True)
@@ -30,3 +32,28 @@ class ProductSerializer(serializers.Serializer):
 
     class Meta:
         model = Product
+
+    def update(self, instance, data):
+
+        instance.name            = data.get("name", instance.name) 
+        instance.description     = data.get("description", instance.description) 
+
+        instance.brand           = data.get('category', instance.brand)
+        instance.category        = data.get('brand', instance.category)
+
+        instance.slug            = data.get("slug", instance.slug) 
+        instance.in_stock_amount = data.get("in_stock_amount", instance.in_stock_amount) 
+        
+        instance.sold_amount     = data.get("sold_amount", instance.sold_amount) 
+        instance.is_active       = data.get("is_active", instance.is_active) 
+        instance.price           = data.get("price", instance.price) 
+
+        #instance.save()
+
+        return instance
+                 
+                 
+                 
+                 
+                 
+                 

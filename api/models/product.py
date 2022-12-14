@@ -39,24 +39,24 @@ class Product(models.Model):
 
             self.created_at = timezone.now()
 
-        # Everything happenning below runs every update
-
-        slug = generate_slug(
-                self.brand.name,
-                self.name,
-                self.id or r(0, 1000000000000),
-                )
-
-
-        # if slug somehow exists in the db, regenerate
-        while len(Product.objects.filter(slug=slug)) != 0:
             slug = generate_slug(
                     self.brand.name,
                     self.name,
-                    self.id or r(0, 10000000000000),
+                    self.id or r(0, 1000000000000),
                     )
 
-        self.slug = slug
+
+            # if slug somehow exists in the db, regenerate
+            while len(Product.objects.filter(slug=slug)) != 0:
+                slug = generate_slug(
+                        self.brand.name,
+                        self.name,
+                        self.id or r(0, 10000000000000),
+                        )
+
+            self.slug = slug
+        # Everything happenning below runs every update
+
 
         self.last_modified = timezone.now()
 
