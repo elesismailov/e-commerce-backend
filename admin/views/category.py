@@ -5,8 +5,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from api.models import Category
-from admin.serializers import CategorySerializer
+from api.models import Category, Product
+from admin.serializers import CategorySerializer, ProductSerializer
+
+from rest_framework.pagination import PageNumberPagination
+
+class CustomPageNumberPagination(PageNumberPagination):
+    page_size_query_param = 'size'
 
 
 class CategoryView(APIView):
@@ -25,8 +30,16 @@ class CategoryView(APIView):
 
         serializer = CategorySerializer(category)
 
-        return Response({
-            'category': serializer.data
+
+        products = Product.objects.filter(category=category).order_by('created_at')
+
+        pagination = CustomPageNumberPagination()
+        page = pagination.paginate_queryset(products, request)
+        pr_serializer = ProductSerializer(page, many=True)
+
+        return pagination.get_paginated_response({
+            'category': serializer.data,
+            'products': pr_serializer.data,
             })
 
 

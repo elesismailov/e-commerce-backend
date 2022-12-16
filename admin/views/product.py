@@ -40,7 +40,7 @@ class ProductView(APIView):
         if (category_id != None) and isinstance(category_id, int): # ids are not integers
             try:
                 category = Category.objects.get(id=category_id)
-                product.category = category
+                instance.category = category
 
             except Category.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
@@ -49,7 +49,7 @@ class ProductView(APIView):
         if (brand_id != None) and isinstance(brand_id, int): # ids are not integers
             try:
                 brand    = Brand.objects.get(id=brand_id)
-                product.brand = brand
+                instance.brand = brand
 
             except Brand.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
