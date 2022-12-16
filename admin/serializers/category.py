@@ -15,6 +15,9 @@ class CategorySerializer(serializers.Serializer):
     
     slug            = serializers.CharField(max_length=50)
 
+    created_at      = serializers.DateTimeField(read_only=True)
+    last_modified   = serializers.DateTimeField(read_only=True)
+
 
     def get_parent_category_id(self, instance):
 

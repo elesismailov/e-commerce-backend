@@ -54,21 +54,8 @@ class ProductView(APIView):
             except Brand.DoesNotExist:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-        # print({'brand': brand, 'category': category, **data})
-
-        # serializer = ProductSerializer(product, data={'brand': brand, 'category': category, **data})
-        # if not serializer.is_valid():
-        #     print(serializer.errors)
-        #     return Response(status=status.HTTP_404_NOT_FOUND)
-
-        # serializer.save()
-
-
         instance.name            = data.get("name", instance.name) 
         instance.description     = data.get("description", instance.description) 
-
-        # instance.brand           = data.get('category', instance.brand)
-        # instance.category        = data.get('brand', instance.category)
 
         instance.slug            = data.get("slug", instance.slug) 
         instance.in_stock_amount = data.get("in_stock_amount", instance.in_stock_amount) 
