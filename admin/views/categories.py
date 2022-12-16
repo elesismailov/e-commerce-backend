@@ -28,6 +28,35 @@ class CategoriesView(APIView):
             })
 
 
+    def post(self, request):
+
+        data = request.data
+
+        name = data.get('name')
+        description = data.get('description')
+        parent_category_id = data.get('parent_category_id')
+
+        if not name:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            parent_category = Category.objects.get(id=parent_category_id)
+
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        category = Category.objects.create(
+                name = name,
+                description = description,
+                parent_category = parent_category,
+                )
+
+        serializer = CategorySerializer(category)
+
+        return Response({
+            'category': serializer.data
+            })
+ 
 
 
 
