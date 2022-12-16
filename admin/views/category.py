@@ -30,8 +30,39 @@ class CategoryView(APIView):
             })
 
 
+    def put(self, request, slug):
 
+        try:
+            category = Category.objects.get(slug=slug)
 
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data
+
+        parent_category_id = data.get('parent_category_id')
+
+        if parent_category_id:
+            try:
+                parent_category = Category.objects.get(id=parent_category_id)
+
+                category.parent_category = parent_category
+
+            except Category.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+        category.name        = data.get('name', category.name)
+        category.slug        = data.get('slug', category.slug)
+        category.description = data.get('description', category.description)
+
+        category.save()
+
+        serializer = CategorySerializer(category)
+
+        return Response({
+            'category': serializer.data
+            })
+ 
 
 
 

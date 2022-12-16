@@ -24,13 +24,23 @@ class Category(models.Model):
 
             self.created_at = timezone.now()
 
-        # Everything happenning below runs every update
-
-        # generating slug
-        self.slug = generate_slug(
+            # generating slug
+            slug = generate_slug(
                 [c.name for c in self.get_all_parents()],
                 self.name,
                 ) or generate_slug(self.name)
+
+
+            # if slug somehow exists in the db, regenerate
+            while len(Product.objects.filter(slug=slug)) != 0:
+                slug = generate_slug(
+                    [c.name for c in self.get_all_parents()],
+                    self.name,
+                    ) or generate_slug(self.name)
+
+            self.slug = slug
+
+        # Everything happenning below runs every update
 
         self.last_modified = timezone.now()
 
