@@ -4,3 +4,4 @@ from .products import ProductsView
 from .product import ProductView
 
 from .categories import CategoriesView
+from .category import CategoryView
