@@ -64,6 +64,23 @@ class CategoryView(APIView):
             })
  
 
+    def delete(self, request, slug):
+
+        try:
+            category = Category.objects.get(slug=slug)
+
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        category.is_active = False
+        category.save()
+
+        serializer = CategorySerializer(category)
+
+        return Response({
+            'category': serializer.data
+            })
+ 
 
 
 

@@ -75,8 +75,6 @@ class ProductView(APIView):
 
     def delete(self, request, slug):
 
-        print(slug)
-
         try:
             product = Product.objects.get(slug=slug)
         except Product.DoesNotExist:

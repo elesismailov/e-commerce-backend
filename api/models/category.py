@@ -13,8 +13,12 @@ class Category(models.Model):
 
     parent_category = models.ForeignKey('api.Category', on_delete=models.DO_NOTHING, blank=True, null=True)
 
+    is_active       = models.BooleanField(default=True)
+
     created_at      = models.DateTimeField(editable=False)
     last_modified   = models.DateTimeField(editable=False)
+
+    deactivated_at  = models.DateTimeField(null=True, blank=True, editable=False)
 
     def save(self, *args, **kwargs):
         '''On save, update/fill fields.'''
@@ -40,7 +44,11 @@ class Category(models.Model):
 
             self.slug = slug
 
+
         # Everything happenning below runs every update
+
+        if not self.is_active:
+            self.deactivated = timezone.now()
 
         self.last_modified = timezone.now()
 
