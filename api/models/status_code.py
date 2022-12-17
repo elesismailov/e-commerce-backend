@@ -7,6 +7,8 @@ class StatusCode(models.Model):
     name          = models.CharField(max_length=50)
     description   = models.CharField(max_length=250)
 
+    slug          = models.CharField(max_length=50, blank=True, unique=True)
+
     created_at    = models.DateTimeField(editable=False)
     last_modified = models.DateTimeField(editable=False)
 
@@ -15,7 +17,10 @@ class StatusCode(models.Model):
 
         # First save/creation
         if not self.id:
+
             self.created_at = timezone.now()
+
+        self.slug = generate_slug(self.name, self.code)
 
         # Everything happenning below runs every update
 
