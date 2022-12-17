@@ -21,7 +21,7 @@ class CustomPageNumberPagination(PageNumberPagination):
 class OrdersView(APIView):
 
     '''
-    /admin/orders/<status-code-slug>
+    /admin/orders/by-status-code/<status-code-slug>/
     '''
 
     def get(self, request, slug):

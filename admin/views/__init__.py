@@ -7,3 +7,4 @@ from .categories import CategoriesView
 from .category import CategoryView
 
 from .orders import OrdersView
+from .order import OrderView

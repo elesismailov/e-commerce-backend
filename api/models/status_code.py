@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from api.helpers.generate_slug import generate_slug
+
 class StatusCode(models.Model):
 
     code          = models.IntegerField()
