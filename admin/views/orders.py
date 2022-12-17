@@ -14,12 +14,11 @@ from admin.helpers.count_orders import count_orders
 
 
 
-
 class CustomPageNumberPagination(PageNumberPagination):
     page_size_query_param = 'size'
 
 
-class OrderView(APIView):
+class OrdersView(APIView):
 
     '''
     /admin/orders/<status-code-slug>

@@ -6,4 +6,4 @@ from .product import ProductView
 from .categories import CategoriesView
 from .category import CategoryView
 
-from .order import OrderView
+from .orders import OrdersView
