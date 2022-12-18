@@ -5,8 +5,8 @@ from api.helpers.generate_slug import generate_slug
 
 class StatusCode(models.Model):
 
-    code          = models.IntegerField()
-    name          = models.CharField(max_length=50)
+    code          = models.IntegerField(unique=True)
+    name          = models.CharField(max_length=50, unique=True)
     description   = models.CharField(max_length=250)
 
     slug          = models.CharField(max_length=50, blank=True, unique=True)
