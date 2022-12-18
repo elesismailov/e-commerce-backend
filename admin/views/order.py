@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from admin.serializers import OrderSerializer
-from api.serializers import OrderItemsSerializer
+from api.serializers import OrderItemSerializer
 from api.models import Order, OrderItem, StatusCode, Category, Product
 
 
@@ -23,10 +23,10 @@ class OrderView(APIView):
         except Order.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        order_items = OrderItems.objects.filter(order=order)
+        order_items = OrderItem.objects.filter(order=order)
 
         order_serializer = OrderSerializer(order)
-        order_items_serializer = OrderItemsSerializer(order_items, many=True)
+        order_items_serializer = OrderItemSerializer(order_items, many=True)
 
         return Response({
             'order': order_serializer.data,
