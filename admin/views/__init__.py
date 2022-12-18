@@ -8,3 +8,5 @@ from .category import CategoryView
 
 from .orders import OrdersView
 from .order import OrderView
+
+from .status_codes import StatusCodesView
