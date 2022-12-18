@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'api.middleware.APIAuthenticationMiddleware',
+#     'admin.middleware.AdminAuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'portfolio_e_commerce.urls'
