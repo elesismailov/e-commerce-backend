@@ -1,10 +1,8 @@
 from django.http import Http404
-from django.core.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from admin.serializers import OrderSerializer
 from api.serializers import StatusCodeSerializer
 from api.models import StatusCode
 
@@ -21,4 +19,35 @@ class StatusCodesView(APIView):
         return Response({
             'status_codes': serializer.data
             })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

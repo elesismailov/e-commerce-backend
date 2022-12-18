@@ -10,3 +10,4 @@ from .orders import OrdersView
 from .order import OrderView
 
 from .status_codes import StatusCodesView
+from .status_code import StatusCodeView
