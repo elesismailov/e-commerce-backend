@@ -34,6 +34,48 @@ class OrderView(APIView):
             })
 
 
+    def put(self, request, order_id):
+
+        try:
+            order = Order.objects.get(id=order_id)
+
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        status_code_id = request.data.get('status_code_id')
+
+        try:
+            status_code = StatusCode.objects.get(id=status_code_id)
+
+        except StatusCode.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        order.status_code = status_code
+
+        order.save()
+
+        serializer = OrderSerializer(order)
+
+        return Response({
+            'order': serializer.data
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
