@@ -14,3 +14,5 @@ from .cart_item import CartItemView
 
 from .orders import OrdersView
 from .order import OrderView, OrderShipmentView
+
+from .profile import Profile

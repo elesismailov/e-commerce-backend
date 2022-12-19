@@ -27,6 +27,8 @@ urlpatterns = [
 
     path('sign-up/', views.sign_up),
     path('log-in/', views.log_in),
+
+    path('profile/', views.Profile.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
