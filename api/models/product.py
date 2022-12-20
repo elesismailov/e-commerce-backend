@@ -11,16 +11,15 @@ from api.helpers.generate_slug import generate_slug
 class Product(models.Model):
 
     name            = models.CharField(max_length=50)
-    description     = models.CharField(max_length=250)
-    slug            = models.CharField(max_length=50, blank=True, unique=True)
+    description     = models.CharField(max_length=250, blank=True, default='')
+    slug            = models.CharField(max_length=250, blank=True, unique=True)
     # TODO how to change category if the category/brand was deleted
     #   (on_delete='do something with the category')
     category        = models.ForeignKey('api.Category', on_delete=models.DO_NOTHING)
     brand           = models.ForeignKey('api.Brand', on_delete=models.DO_NOTHING)
-    in_stock_amount = models.IntegerField()
-    sold_amount     = models.IntegerField(default=0)
+
     is_active       = models.BooleanField(default=True)
-    price           = models.IntegerField()
+    price           = models.DecimalField(max_digits=10, decimal_places=3, default=0, blank=True)
 
     created_at      = models.DateTimeField(editable=False)
     last_modified   = models.DateTimeField(editable=False)
@@ -107,10 +106,14 @@ class VariantOption(models.Model):
 
 class Sku(models.Model):
 
-    name           = models.CharField(max_length=100)
+    name           = models.CharField(max_length=100, blank=True, null=True)
     product        = models.ForeignKey('api.Product', on_delete=models.CASCADE)
-    barcode        = models.CharField(max_length=100)
-    price          = models.IntegerField()
+    barcode        = models.CharField(max_length=100, unique=True, blank=True)
+    price          = models.DecimalField(max_digits=10, decimal_places=3)
+
+    slug           = models.CharField(max_length=250, blank=True, unique=True)
+
+    in_stock       = models.DecimalField(max_digits=10, decimal_places=3, default=0)
 
     created_at     = models.DateTimeField(editable=False)
     last_modified  = models.DateTimeField(editable=False)
@@ -119,6 +122,16 @@ class Sku(models.Model):
         '''On save, update/fill fields.'''
         if not self.id:
             self.created_at = timezone.now()
+
+            barcode = r(0, 1000000000000)
+
+            # if slug somehow exists in the db, regenerate
+            while len(Sku.objects.filter(barcode=barcode)) != 0:
+                barcode = r(0, 1000000000000)
+
+            self.barcode = barcode
+            self.slug    = generate_slug(self.product.slug, self.barcode)
+
         self.last_modified = timezone.now()
         return super(Sku, self).save(*args, **kwargs)
 
