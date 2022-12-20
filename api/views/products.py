@@ -11,7 +11,7 @@ class CustomPageNumberPagination(PageNumberPagination):
     page_size_query_param = 'size'
 
 
-class ProductList(APIView):
+class ProductsView(APIView):
     """
     List all Products, or create a new Product.
     """

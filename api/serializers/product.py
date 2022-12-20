@@ -16,9 +16,6 @@ class ProductSerializer(serializers.Serializer):
     
     slug            = serializers.CharField(max_length=50)
 
-    in_stock_amount = serializers.IntegerField()
-    sold_amount     = serializers.IntegerField()
-
     is_active       = serializers.BooleanField(read_only=True)
     
     price           = serializers.IntegerField()

@@ -1,4 +1,4 @@
-from .products import ProductList
+from .products import ProductsView
 from .categories import CategoryList
 
 from .sign_up import sign_up

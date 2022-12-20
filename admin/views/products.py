@@ -8,7 +8,7 @@ from psycopg2.errors import NotNullViolation
 
 from rest_framework.pagination import PageNumberPagination
 
-from api.models import Product, Brand, Category
+from api.models import Product, Brand, Category, Variant, VariantOption, Sku, SkuMapper
 from admin.serializers import ProductSerializer
 
 class CustomPageNumberPagination(PageNumberPagination):
@@ -41,15 +41,12 @@ class ProductsView(APIView):
         description     = data.get('description')
         category_id     = data.get('category_id')
         brand_id        = data.get('brand_id')
-        in_stock_amount = data.get('in_stock_amount')
-        sold_amount     = data.get('sold_amount', 0)
         price           = data.get('price')
 
         # validate submited data
         if (
                 not name or not description or # name or desc are not given
-                price == None or price < 1 or  # price isn't given or negative
-                in_stock_amount == None or in_stock_amount < 1 or # in_stock_amount is not given or negative
+                #price == None or price < 1 or  # price isn't given or negative
                 category_id == None or brand_id == None or # ids are not given
                 not isinstance(category_id, int) or # ids are not integers
                 not isinstance(brand_id, int)
@@ -66,24 +63,38 @@ class ProductsView(APIView):
         except Brand.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        try: 
-            product = Product.objects.create(
-                name            = name,
-                description     = description,
-                category        = category,
-                brand           = brand,
-                in_stock_amount = in_stock_amount,
-                sold_amount     = sold_amount,
-                price           = price,
-                )
+        product = Product.objects.create(
+            name            = name,
+            description     = description,
+            category        = category,
+            brand           = brand,
+            price           = price,
+            )
 
-        except ValidationError or NotNullViolation:
-            print(ValidationError)
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        for sku_data in data.get('skus'):
+            sku = Sku.objects.create(
+                    barcode = sku_data.get('barcode'),
+                    price = sku_data.get('price'),
+                    product = product,
+                    #is_master = sku_data.get('is_master'),
+                    )
+            for v, o in sku_data.get('variants').items():
+                try:
+                    variant = Variant.objects.get(name=v.capitalize(), product=product)
+                except Variant.DoesNotExist:
+                    variant = Variant.objects.create(
+                            name = v.capitalize(),
+                            product = product,
+                            )
+                option = VariantOption.objects.create(
+                        name = o.capitalize(),
+                        variant = variant,
+                        )
 
-        except Exception as e:
-            raise e
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                mapper = SkuMapper.objects.create(
+                        sku = sku,
+                        variant_option = option,
+                        )
 
         serializer = ProductSerializer(product)
 
