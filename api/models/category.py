@@ -36,7 +36,7 @@ class Category(models.Model):
 
 
             # if slug somehow exists in the db, regenerate
-            while len(Product.objects.filter(slug=slug)) != 0:
+            while len(Category.objects.filter(slug=slug)) != 0:
                 slug = generate_slug(
                     [c.name for c in self.get_all_parents()],
                     self.name,
